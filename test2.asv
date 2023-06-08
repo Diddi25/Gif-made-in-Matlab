@@ -1,0 +1,14 @@
+clc, clearvars
+
+my_array = [10, 20, 30, 40, 50];
+T = tic
+
+T_mldivide = zeros(3);
+for i = 1:length(my_array)
+    tic;
+    
+  
+    T_mldivide(i)=toc;
+end
+
+
