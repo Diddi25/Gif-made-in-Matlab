@@ -1,0 +1,50 @@
+clc, clearvars
+
+filename="monthly_in_situ_co2_mlo.csv";
+TABLE=readtable(filename);
+
+T = [ TABLE.Date_1 ];  % T ska vara en vektor med tiden för olika C02 mätningar
+y = [ TABLE.CO2 ];  % y ska vara en vektor med data från CO2 mätningar 
+
+nanIndices = isnan(T);
+vecWithoutNaN = T(~nanIndices);
+
+nanIndices2 = isnan(y);
+vecWithoutNaN2 = y(~nanIndices2);
+
+% Initialize an empty vector
+onlyOnesVector = [];
+
+% Loop to add element 1
+for i = 1:length(vecWithoutNaN)
+ 
+    newElement = 1;
+    
+    onlyOnesVector(i, 1) = newElement;
+
+end
+
+newMatrix = [vecWithoutNaN, onlyOnesVector];
+
+disp(newMatrix);
+
+x = mldivide(newMatrix, vecWithoutNaN2);
+
+k = x(1);
+m = x(2);
+xaxis = linspace(1950, 2030, 10);
+
+myFunc = k*xaxis + m;
+
+
+plot(xaxis, myFunc);
+
+axis([-5, 5, -1, 1]);
+grid on;
+
+hold on;
+
+plot(vecWithoutNaN, vecWithoutNaN2)
+
+
+
