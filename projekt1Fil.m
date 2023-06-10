@@ -45,7 +45,7 @@ for i=1:length(nList)
   % because k vary depending on the sum of each column in R, 
   % k gets bigger smaller if sum > 1 and vice versa
   R = lower_bound + (upper_bound - lower_bound) * rand(n);
-  k = 0.5;
+  k = 1/n;
   C = k*R;
   
   A = I - C;
