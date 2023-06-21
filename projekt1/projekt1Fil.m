@@ -78,11 +78,30 @@ end
 figure; hold on
 %----- SKRIV KOD: Rita första figuren -----
 plot(T_mldivide)
+title('Linear Scale Plot For mldivide');
 
 
 figure; hold on
 %----- SKRIV KOD: Rita andra figuren -----
 plot(T_inv)
+title('Linear Scale Plot For mldivide');
+
+
+figure; hold on
+%----- SKRIV KOD: Rita första figuren med logaritmisk skala -----
+plot(T_mldivide)
+title('Logarithmic Scale Plot For mldivide');
+set(gca, 'xscale', 'log');
+set(gca, 'yscale', 'log');
+
+
+figure; hold on
+%----- SKRIV KOD: Rita första figuren med logaritmisk skala -----
+plot(T_inv)
+title('Logarithmic Scale Plot For inv');
+set(gca, 'xscale', 'log');
+set(gca, 'yscale', 'log');
+
 
 % Frågor:
 % 1. 1.	Antag att du ska lösa ett problem med tre obekanta en eller ett par gånger. Hur väljer du metod? Är det viktigt att välja rätt metod?
