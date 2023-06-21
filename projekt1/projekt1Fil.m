@@ -37,17 +37,9 @@ for i=1:length(nList)
   % t.ex k = 0.5
   % ...
   I = eye(n);
-  % Define the range
-  lower_bound = 0.001;
-  upper_bound = 0.01;
-
-  % Generate a vector of random numbers within the specified range
-  % because k vary depending on the sum of each column in R, 
-  % k gets bigger smaller if sum > 1 and vice versa
-  R = lower_bound + (upper_bound - lower_bound) * rand(n);
+  R = rand(n);
   k = 1/n;
   C = k*R;
-  
   A = I - C;
 
 
@@ -85,12 +77,12 @@ end
 
 figure; hold on
 %----- SKRIV KOD: Rita första figuren -----
-scatter(1:1, T_mldivide(:))
+plot(T_mldivide)
 
 
 figure; hold on
 %----- SKRIV KOD: Rita andra figuren -----
-scatter(1:1, T_inv(:))
+plot(T_inv)
 
 % Frågor:
 % 1. 1.	Antag att du ska lösa ett problem med tre obekanta en eller ett par gånger. Hur väljer du metod? Är det viktigt att välja rätt metod?
