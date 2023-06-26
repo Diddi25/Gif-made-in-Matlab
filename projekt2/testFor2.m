@@ -10,6 +10,8 @@ TABLE=readtable(filename);
 T = [ TABLE.Date_1 ];  % T ska vara en vektor med tiden för olika C02 mätningar
 y = [ TABLE.CO2 ];  % y ska vara en vektor med data från CO2 mätningar 
 
-plot(T, y)
+
+
+plot(R, B)
 ylim([300, 450]);
 grid on;

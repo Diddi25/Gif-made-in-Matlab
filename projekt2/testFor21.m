@@ -31,6 +31,7 @@ plot(T, myFunc);
 
 
 axis([1950, 2025, 300, 450]);
+title('Keeling Curve and Fitted Linear Curve');
 grid on;
 
 hold on;

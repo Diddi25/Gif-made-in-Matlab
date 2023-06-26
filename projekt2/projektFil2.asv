@@ -99,7 +99,7 @@ title('Keeling Curve and Fitted Cubic Curve');
 % SVAR: ...
 % Anpassningarna blir mycket bättre när anpassningen går från linjär till
 % en andragradsfunktion. Detta har att göra med att den tillgängliga datan
-% följer en andragradskurva bättre än den linjära. Så det blir mycket
+% följer en andragrads kurva bättre än den linjära. Så det blir mycket
 % bättre. Till utseendet blir övergången från andragradskurvan till
 % tredjegradskurvan inte signifikant mycket bättre jämfört med övergången
 % från en linjär till kvadratisk anpassning. Men detta kan ha att göra med
@@ -118,10 +118,9 @@ title('Keeling Curve and Fitted Cubic Curve');
 % exponentiella utvecklingstrender en fortsatt exponentiell tillväxt.
 % Detta eftersom sådana utvecklingar kan smalna av efter en period av
 % exponentiell utveckling då det mer liknar en S-kurva. (Det har med typen 
-% av datat också att göra) Vilket i det fallet en kurva av högre grad än 
-% två skulle vara aktuell. Det finns exempelvis faktorer som att länder 
-% övergår mer till förnybara bränslen och förbrukar energi mer effektivt 
-% än vad man gör idag. Men om dessa förändringar inte görs kan 
-% anpassningarna stämma om 50 år. 
+% av datat också att göra) Vilket i det falleten kurva av högre grad än två skulle vara aktuell. Det finns exempelvis
+% faktorer som att länder övergår mer till förnybara bränslen och förbrukar
+% energi mer effektivt än vad man gör idag. Men om dessa förändringar inte
+% görs kan anpassningarna stämma om 50 år. 
 
 

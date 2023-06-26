@@ -26,4 +26,4 @@ curve_x = linspace(min(T), max(T), 100);
 curve_y = a * curve_x.^3 + b * curve_x.^2 + c* curve_x + d;
 
 plot(curve_x, curve_y);
-title('Keeling Curve and Fitted tredje Curve');
+title('Keeling Curve and Fitted Cubic Curve');
