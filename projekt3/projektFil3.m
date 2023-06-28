@@ -19,7 +19,8 @@ NumberOfTimeSteps = 50;
 
 v = pi/8; %rotationsvinkel i rad
 rotations_matris = [cos(v), -sin(v), 0
-                    sin(v), cos(v),  0]; %rotationsmatris i 2D moturs
+                    sin(v), cos(v),  0
+                    0,      0,       1]; %rotationsmatris i 2D moturs
 
 dx = -0.5;
 dy = 0.5;
@@ -29,12 +30,13 @@ translations_matris = [1, 0, dx
 
 
 [sx, sy] = deal(1 +(1.5/50)); %samma skalningsfaktor för x- och y led
-skalningsmatris = [sx, 0
-                   0, sy]; 
+skalningsmatris = [sx, 0, 0
+                   0, sy, 0
+                   0,  0, 1]; 
 
 %----- SKRIV KOD: Skapa den matris som beskriver den efterfrågade avbildningen -----
 
-M = skalningsmatris * rotations_matris * translations_matris; %resulterande transformations matris
+CM = skalningsmatris * translations_matris * rotations_matris; %resulterande transformations matris
 
 %------------------------------
 % SKAPA STRECKGUBBEN, DASH-MAN
@@ -48,8 +50,8 @@ D=DashMan();
 figure(1);
 clf; hold on;
 axis equal
-%axis(BoundingBox)
-%set(gca,'visible','off')
+axis(BoundingBox)
+set(gca,'visible','off')
 
 plotDashMan(D); % Här ritar vi Dash-man som han ser ut från början
 addFrameToGif(filename, 1, TimePerFrame)
@@ -63,21 +65,15 @@ for i = 2:50
   %----- SKRIV KOD: Transformera alla DASH-MAN's kroppsdelar -----
   % Här ska du uppdatera punkter i D, dvs alla punkter i huvudet, kroppen osv.
   
-  new_head = M * D.head;
-  D.head = [new_head; ones(size(linspace(-pi,pi,50)))];
+  D.head = CM * D.head;
 
-  new_mouth = M * D.mouth;
-  D.mouth = [new_mouth; ones(size(linspace(-pi,pi,50)))];
+  D.mouth = CM * D.mouth;
 
-  new_arms = M * D.arms;
-  D.arms = [new_arms; 1, 1, 1];
+  D.body = CM * D.body;
 
-  new_body = M * D.body;
-  D.body = [new_body; 1, 1];
+  D.legs = CM * D.legs;
 
-  new_legs = M * D.legs;
-  D.legs = [new_legs; 1, 1, 1];
-
+  D.arms = CM * D.arms;
 
 
   hold off
@@ -93,8 +89,17 @@ end
 %	1. Varför innehåller sista raden i D.head bara ettor?
 
 % SVAR: Det är homogena koordinater för att sammanfoga transformationerna,  
-% såsom rotation, translation samt skalning, genom matrismultiplikation. Detta
-% används för att möjliggöra perspektiveffekterna när gubben rör på sig.
+% såsom rotation, translation samt skalning, genom matrismultiplikation. 
+
+% Edit: Inom datorgrafik och geometri används ett homogent koordinatsystem
+% för att representera punkter och transformationer på ett enhetligt sätt.
+% I jämförelse med ett vanligt kartesiskt koordinatsystem läggs det till en
+% extra koordinat, en homogen koordinat. Men i vårt fall är den koordinaten
+% 1, vilket syftar till att motsvara direkta punkten (x, y) i ett
+% kartesiskt koordinatsystem eftersom gubben är i ett 2D system. Att 
+% använda en homogen koordinat som har värdet 1 möjliggör att ingen extra
+% koodrinat behövs för att modifiera/skala punktens position. Detta gör
+% även att koordinaterna inte behöver normaliseras i transformationerna.
 
 %   2. Beskriv skillnaden i gubbens rörelse över flera varv (d.v.s banan 
 % gubben rör sig längs) när man translaterar uppåt, neråt, åt höger eller 

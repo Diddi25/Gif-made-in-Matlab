@@ -9,7 +9,7 @@
 clear all
 
 % List över antalet frihetsgrader (värden på n) som ska studeras.
-% Här har vi alltså fyra olika fall som ska studeras, först n=1, sen n=30,
+% Här har vi alltså fyra olika fall som ska studeras, först n=3, sen n=30,
 % sen n=300 och till sist n=3000.
 nList = [3, 30, 300, 3000];
 
@@ -84,7 +84,7 @@ title('Linear Scale Plot For mldivide');
 figure; hold on
 %----- SKRIV KOD: Rita andra figuren -----
 plot(T_inv)
-title('Linear Scale Plot For mldivide');
+title('Linear Scale Plot For inv');
 
 
 figure; hold on
@@ -110,6 +110,17 @@ set(gca, 'yscale', 'log');
 % kan man välja den mest lämpliga metoden, t.ex gauss eliminering, inversion eller iterativa metoder
 % som ger noggranna och effektiva lösningar för specifika problem.
 
+% Edit: Det är inte jätteviktigt att använda rätt metod när det är ett
+% litet antal obekanta, men för att lösa ekvationen så behöver t.ex.
+% inversion kräva ett steg innan man löser ekvationen, dvs testa om matrisen är
+% singulär (determinanten är 0) vilket gör att matrisen inte har en invers 
+% för att lösa det. Detta gör att mldivide är effektivare eftersom den
+% använder en kombination av tekniker som exempelvis LU-faktorisering eller
+% singular value decomposition, (SVD) beroende på matrisen A´s egenskaper i
+% Ax=B. Detta stödjs av kurvan i de logaritmiska graferna där mldivide är lite
+% snabbare än inv. Detta gör också att mldivide är stabilare och mindre
+% beräkningsintensivt jämfört med inv. 
+
 % 2. Antag att du ska lösa ett problem med tre obekanta 10 000 gånger. Hur väljer du metod? Är det viktigt att välja rätt metod?
 % SVAR: För att välja en noggrann och effektiv metod kan komplexiteten hos metoderna och
 % egenskaperna av matrisekvationer behöva analyseras. Vissa metoder kan ha högre tidskomplexitet 
@@ -120,7 +131,11 @@ set(gca, 'yscale', 'log');
 % eliminering. Om matrisen har speciella egenskaper så kan
 % bandlösningsalgoritmer utnyttjas. (t.ex. för 2X2 matriser) Dessa
 % optimeringar kan effektivisera exekveringstiden och kräva mindre
-% beräkningskraft.
+% beräkningskraft. 
+
+% Edit: Utifrån vad man ser i graferna är skillnaden på beräkningstiden för 
+% 3 obekanta inte särskilt stor. Men med samma resonemang som ovan anses
+% mldivide vara en stabilare metod för att lösa matrisekvationer. 
 
 % 3. Antag att du ska lösa ett problem med 3000 obekanta en eller ett par gånger. Hur väljer du metod? Är det viktigt att välja rätt metod?
 % SVAR: Det är viktigt att välja rätt metod för samtliga frågor och
@@ -129,6 +144,13 @@ set(gca, 'yscale', 'log');
 % komplexa matriser kan iterativa metoder som konjugerad gradient eller 
 % GMRES vara effektivare och kräva mindre beräkningsresurser jämfört med
 % direkta lösningar. 
+
+% Edit: Det är väldigt viktigt att använda rätt metod en matris med 3000
+% obekanta för att effektivitet, noggrannhet och beräkningsintensivitet ska
+% bli så kostnadseffektivt som möjligt. I graferna ser man en stor skillnad på
+% beräkningstiden mellan inv och mldivide där mldivide är effektivare ju
+% fler obekanta matrisen har. Detta med samma anledning som resonemangen
+% ovan. 
 
 % 4. Kör om alla räkningar tre gånger. Varför får du olika resultat varje gång du kör programmet?
 % SVAR: I beräkningarna används slumptal för att generera matrisen R, C och
